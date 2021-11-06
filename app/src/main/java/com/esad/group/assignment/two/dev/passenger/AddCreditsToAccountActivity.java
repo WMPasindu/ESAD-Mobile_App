@@ -1,29 +1,24 @@
 package com.esad.group.assignment.two.dev.passenger;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.esad.group.assignment.two.dev.LoginActivity;
 import com.esad.group.assignment.two.dev.R;
 import com.esad.group.assignment.two.dev.modal.CardDetailsSingleton;
-import com.esad.group.assignment.two.dev.modal.Results;
-import com.esad.group.assignment.two.dev.network.RetrofitClient;
+import com.esad.group.assignment.two.dev.utils.AppConstants;
 import com.esad.group.assignment.two.dev.utils.AppUtils;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.List;
+import java.text.DecimalFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AddCreditsToAccountActivity extends AppCompatActivity {
 
@@ -47,17 +42,32 @@ public class AddCreditsToAccountActivity extends AppCompatActivity {
         init();
     }
 
+    // goback
+    @OnClick(R.id.btn_back)
+    public void navigateBack() {
+        onBackPressed();
+    }
+
+    // signout
+    @OnClick(R.id.signout)
+    public void signOut() {
+        Intent mIntent = new Intent(this, LoginActivity.class);
+        finishAffinity();
+        startActivity(mIntent);
+    }
+
+    // make payment option
     @OnClick(R.id.btn_pay)
     public void doPay() {
         Toast.makeText(this, "Payed!", Toast.LENGTH_LONG).show();
         validateDate();
-        getSuperHeroes();
         new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("Successful!")
                 .setContentText("Your payment has been successful!")
                 .show();
     }
 
+    // validate date option
     private void validateDate() {
         if (AppUtils.validateText(mCreditCardNumber.getText().toString())) {
             if (AppUtils.validateCard("visa", mCreditCardNumber.getText().toString())) {
@@ -98,31 +108,20 @@ public class AddCreditsToAccountActivity extends AppCompatActivity {
         }
     }
 
+    // innitial screens
     protected void init() {
         cardDetailsSingleton = CardDetailsSingleton.getInstance();
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+            String value = bundle.getString(AppConstants.PAYMENT);
+            mCreditAmount.setText("Rs. " +currencyFormat(value));
+        }
     }
 
-    private void getSuperHeroes() {
-        Call<List<Results>> call = RetrofitClient.getInstance().getMyApi().getsuperHeroes();
-        call.enqueue(new Callback<List<Results>>() {
-            @Override
-            public void onResponse(Call<List<Results>> call, Response<List<Results>> response) {
-                List<Results> myheroList = response.body();
-                String[] oneHeroes = new String[myheroList.size()];
-
-                for (int i = 0; i < myheroList.size(); i++) {
-                    oneHeroes[i] = myheroList.get(i).getName();
-                }
-
-                Log.d("LOG", "Super Heroes : " + oneHeroes[0]);
-            }
-
-            @Override
-            public void onFailure(Call<List<Results>> call, Throwable t) {
-                AppUtils.getSnackBar(findViewById(android.R.id.content), "An Error Occurred!", Snackbar.LENGTH_LONG);
-            }
-
-        });
+    // make currensy format and adding cents values to it
+    public static String currencyFormat(String amount) {
+        DecimalFormat formatter = new DecimalFormat("###,###,##0.00");
+        return formatter.format(Double.parseDouble(amount));
     }
 
 }

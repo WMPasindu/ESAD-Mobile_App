@@ -13,6 +13,28 @@
         android:paddingBottom="24dp"
         tools:ignore="MissingConstraints">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/signout"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_baseline_power_settings_new_24"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
             android:layout_width="80dp"
@@ -57,6 +79,8 @@
         android:background="#DFDFDF"
         android:outlineSpotShadowColor="@color/black"
         app:cardCornerRadius="10dp"
+        app:cardElevation="4dp"
+        android:elevation="20dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,6 +112,7 @@
                 android:clickable="true"
                 android:text="Driver Home"
                 android:textAllCaps="true"
+                android:textColor="#265C7E"
                 android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -107,7 +132,8 @@
                     android:layout_weight="3"
                     android:src="@drawable/ic_baseline_home_24"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView10"
+                    app:tint="#265C7E"/>
 
                 <TextView
                     android:id="@+id/txt_home"
@@ -118,6 +144,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:clickable="true"
+                    android:textSize="18sp"
                     android:text="Home"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -130,11 +157,13 @@
                     android:layout_weight="3"
                     android:src="@drawable/ic_baseline_navigate_next_24"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView10"
+                    app:tint="#265C7E"/>
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/locate_vehile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -147,9 +176,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:src="@drawable/ic_baseline_insert_chart_outlined_24"
+                    android:src="@drawable/ic_baseline_add_location_alt_24"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView10"
+                    app:tint="#265C7E"/>
 
                 <TextView
                     android:id="@+id/txt_location"
@@ -160,7 +190,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:clickable="true"
-                    android:text="Select Location"
+                    android:text="Locate Vehicle"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -172,11 +203,13 @@
                     android:layout_weight="3"
                     android:src="@drawable/ic_baseline_navigate_next_24"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView10"
+                    app:tint="#265C7E"/>
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/examine_token"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -191,7 +224,8 @@
                     android:layout_weight="3"
                     android:src="@drawable/ic_baseline_sticky_note_2_24"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView10"
+                    app:tint="#265C7E"/>
 
                 <TextView
                     android:id="@+id/txt_check_token"
@@ -202,7 +236,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:clickable="true"
-                    android:text="Check Token"
+                    android:text="Examine Token"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -214,10 +249,12 @@
                     android:layout_weight="3"
                     android:src="@drawable/ic_baseline_navigate_next_24"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView10"
+                    app:tint="#265C7E"/>
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/request_leave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -232,7 +269,8 @@
                     android:layout_weight="3"
                     android:src="@drawable/ic_baseline_note_add_24"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView10"
+                    app:tint="#265C7E"/>
 
                 <TextView
                     android:id="@+id/txt_report_absence"
@@ -243,7 +281,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:clickable="true"
-                    android:text="Report Duty Absence"
+                    android:text="Request A Leave"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -255,10 +294,12 @@
                     android:layout_weight="3"
                     android:src="@drawable/ic_baseline_navigate_next_24"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView10"
+                    app:tint="#265C7E"/>
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/inform_out_of_service"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -271,9 +312,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:src="@drawable/ic_baseline_person_pin_24"
+                    android:src="@drawable/ic_baseline_warning_24"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView10"
+                    app:tint="#265C7E"/>
 
                 <TextView
                     android:id="@+id/txt_driver_details"
@@ -284,7 +326,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:clickable="true"
-                    android:text="Add Driver Details"
+                    android:text="Inform Out Of Service"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -296,7 +339,8 @@
                     android:layout_weight="3"
                     android:src="@drawable/ic_baseline_navigate_next_24"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView10"
+                    app:tint="#265C7E"/>
             </LinearLayout>
 
         </LinearLayout>

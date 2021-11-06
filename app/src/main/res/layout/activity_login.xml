@@ -118,6 +118,17 @@
             android:nextFocusDown="@+id/et_new_course_acronym" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Spinner
+        android:id="@+id/sp_type_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPhone"/>
+
     <Button
         android:id="@+id/btn_sign_in"
         android:layout_width="0dp"
@@ -132,7 +143,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
+        app:layout_constraintTop_toBottomOf="@+id/sp_type_spinner" />
 
     <TextView
         android:id="@+id/textView4"

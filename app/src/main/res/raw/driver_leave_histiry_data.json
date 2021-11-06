@@ -1,0 +1,26 @@
+[
+   {
+      "type": "Casual",
+      "fromDate":"05-10-2021",
+      "toDate":"05-10-2021",
+      "remark":"Wedding"
+   },
+   {
+      "type": "Sick",
+      "fromDate":"01-10-2021",
+      "toDate":"01-10-2021",
+      "remark":"Outing"
+   },
+   {
+      "type": "Casual",
+      "fromDate":"04-08-2021",
+      "toDate":"09-08-2021",
+      "remark":"Annual"
+   },
+   {
+      "type": "Other",
+      "fromDate":"23-04-2021",
+      "toDate":"23-04-2021",
+      "remark":"Other"
+   }
+]

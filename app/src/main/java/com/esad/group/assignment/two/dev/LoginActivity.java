@@ -1,38 +1,68 @@
 package com.esad.group.assignment.two.dev;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
-import com.esad.group.assignment.two.dev.driver.DriverActivity;
-import com.esad.group.assignment.two.dev.inspector.InspectorActivity;
-import com.esad.group.assignment.two.dev.modal.AppUserSingleton;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.esad.group.assignment.two.dev.interfaces.InternetAccess;
 import com.esad.group.assignment.two.dev.modal.LoginUser;
-import com.esad.group.assignment.two.dev.passenger.PassengerProfileActivity;
+import com.esad.group.assignment.two.dev.network.ServiceLocator;
+import com.esad.group.assignment.two.dev.navigation.NavigateUserScreen;
+import com.esad.group.assignment.two.dev.proxy.OfficeMode;
+import com.esad.group.assignment.two.dev.proxy.OnlineMode;
 import com.esad.group.assignment.two.dev.utils.AppUtils;
 import com.esad.group.assignment.two.dev.utils.ValidateUser;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private LoginUser loginUser;
-    private ValidateUser validateUser;
     @BindView(R.id.et_email)
     TextInputEditText email;
     @BindView(R.id.et_password)
     TextInputEditText password;
+    private LoginUser loginUser;
+    private ValidateUser validateUser;
+    @BindView(R.id.sp_type_spinner)
+    Spinner sp_type_spinner;
+    private String accountType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        // adding data to dropdwon
+        sp_type_spinner.setOnItemSelectedListener(this);
+        List<String> categories = new ArrayList<>();
+        categories.add("Select Type");
+        categories.add("Passenger");
+        categories.add("Driver");
+        categories.add("Inspector");
+        categories.add("Transport Manager");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_type_spinner.setAdapter(dataAdapter);
+
         init();
     }
 
@@ -40,10 +70,11 @@ public class LoginActivity extends AppCompatActivity {
         loginUser = new LoginUser();
         validateUser = new ValidateUser();
     }
-
+    // navigate button sign in
     @OnClick(R.id.btn_sign_in)
     public void signIn() {
         if (AppUtils.validateText(email.getText().toString())) {
+            //set validation for email
             if (AppUtils.validateEmail(email.getText().toString())) {
                 loginUser.setUsername(email.getText().toString());
                 loginUser.setUserType(AppUtils.userType(email.getText().toString()));
@@ -53,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             email.setError("This field is required");
         }
+        //validation for password
         if (AppUtils.validateText(password.getText().toString())) {
             int minPasswordLength = 8;
             if (AppUtils.lengthText(password.getText().toString(), minPasswordLength)) {
@@ -65,9 +97,9 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (validateUser.validateUser(loginUser)) {
-            doLogin(loginUser);
+            doLogin();
         } else {
-            AppUtils.getSnackBar(findViewById(android.R.id.content), "Invalid Login",  Snackbar.LENGTH_LONG);
+            AppUtils.getSnackBar(findViewById(android.R.id.content), "Invalid Login", BaseTransientBottomBar.LENGTH_LONG);
         }
     }
 
@@ -75,40 +107,59 @@ public class LoginActivity extends AppCompatActivity {
     public void signUp() {
         Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
-        finish();
     }
 
-    private void doLogin(LoginUser user) {
-        if (user.getUserType().equalsIgnoreCase("Passenger")) {
-            createUser("Michel", "Starc", "071-5831012", "931245678V", loginUser.getUsername(),
-                    "https://196034-584727-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2019/05/Business-Development-Manager-Profile-Photo.jpg");
-            loadActivityToView(PassengerProfileActivity.class);
-        } else if (user.getUserType().equalsIgnoreCase("Driver")) {
-            createUser("Mike", "Arthur", "071-1234012", "680227872V", loginUser.getUsername(),
-                    "https://buffer.com/library/content/images/2020/05/Ash-Read.png");
-            loadActivityToView(DriverActivity.class);
-        } else if (user.getUserType().equalsIgnoreCase("Inspector")) {
-            createUser("Mahela", "Jayawardena", "071-6790354", "841899608V", loginUser.getUsername(),
-                    "https://196034-584727-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2018/01/IT-QA-Analist-profile-picture-round.jpg");
-            loadActivityToView(InspectorActivity.class);
+    private void doLogin() {
+        loadActivityToView();
+    }
+    //login network call
+    private void loadActivityToView() {
+        InternetAccess internetAccess = new OnlineMode();
+
+        if(internetAccess.grantInternetAccess(LoginActivity.this)) {
+            ServiceLocator.getInstance().getApi(ServiceLocator.GSON).login(email.getText().toString(), password.getText().toString(), accountType).enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    try {
+                        if (response.isSuccessful() && response.body() != null) {
+                            Log.d("LOG", "Successfully login : " + response.body().toString());
+                            if (response.body().equals(true)) {
+                                moveToNextActivity();
+                            }
+                        } else {
+                            new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE).setTitleText("Oops...").setContentText("Something went wrong!").show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE).setTitleText("Oops...").setContentText("Something went wrong!").show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                    new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE).setTitleText("Oops...").setContentText("Something went wrong!").show();
+                }
+            });
+        } else {
+            new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.WARNING_TYPE).setTitleText("Oops...").setContentText("Connection Lost..!").show();
         }
     }
 
-    private void loadActivityToView(Object CreateTokenActivity) {
-        Intent intent = new Intent(this, (Class<?>) CreateTokenActivity);
+    protected void moveToNextActivity() {
+        Intent intent = new Intent(this, (Class<?>) new NavigateUserScreen().selectedUserType(accountType, loginUser));
         startActivity(intent);
         finish();
     }
 
-    protected void createUser(String fname, String lname, String phone, String nic, String username, String profImage) {
-        AppUserSingleton appUserSingleton = AppUserSingleton.getInstance();
-        appUserSingleton.setUserId(1L);
-        appUserSingleton.setFirstName(fname);
-        appUserSingleton.setLastname(lname);
-        appUserSingleton.setMobileNumber(phone);
-        appUserSingleton.setNic(nic);
-        appUserSingleton.setEmail(username);
-        appUserSingleton.setProfileImage(profImage);
+    //provide spinner selected item
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String item = parent.getItemAtPosition(position).toString();
+        accountType = item;
+    }
+
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
     }
 
 }

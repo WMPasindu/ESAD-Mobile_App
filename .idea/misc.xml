@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Assingment/ESAD/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2203125" />
         <entry key="..\:/Assingment/ESAD/app/src/main/res/drawable/circle.xml" value="0.215625" />
         <entry key="..\:/Assingment/ESAD/app/src/main/res/drawable/ic_wave_bg_header.xml" value="0.2203125" />
@@ -17,17 +18,36 @@
         <entry key="..\:/Assingment/ESAD/app/src/main/res/layout/activity_inspector.xml" value="0.20416666666666666" />
         <entry key="..\:/Assingment/ESAD/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Assingment/ESAD/app/src/main/res/layout/activity_pasenger_profile.xml" value="0.20416666666666666" />
+        <entry key="..\:/Assingment/ESAD/app/src/main/res/layout/activity_passenger_log.xml" value="0.20416666666666666" />
         <entry key="..\:/Assingment/ESAD/app/src/main/res/layout/activity_sign_up.xml" value="0.20416666666666666" />
+        <entry key="..\:/Assingment/ESAD/app/src/main/res/layout/activity_transport_manager.xml" value="0.20416666666666666" />
         <entry key="..\:/Assingment/ESAD/app/src/main/res/layout/activity_verify_ticket.xml" value="0.20416666666666666" />
+        <entry key="..\:/Assingment/ESAD/app/src/main/res/layout/activity_view_previous_approved_tickets.xml" value="0.20416666666666666" />
         <entry key="..\:/Assingment/ESAD/app/src/main/res/layout/custom_qr_popup_dialog.xml" value="0.20416666666666666" />
+        <entry key="..\:/Assingment/ESAD/app/src/main/res/layout/leave_history_items.xml" value="0.20416666666666666" />
+        <entry key="..\:/Assingment/ESAD/app/src/main/res/layout/map_popup_dialog.xml" value="0.20416666666666666" />
+        <entry key="..\:/Assingment/ESAD/app/src/main/res/layout/passenger_log_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Assingment/ESAD/app/src/main/res/layout/popup_layout.xml" value="0.19429347826086957" />
+        <entry key="..\:/Assingment/ESAD/app/src/main/res/layout/previous_token_items.xml" value="0.20416666666666666" />
+        <entry key="..\:/Assingment/ESAD/app/src/main/res/layout/ticket_history_items.xml" value="0.20416666666666666" />
       </map>
     </option>
+  </component>
+  <component name="JavadocGenerationManager">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/javadoc" />
+    <option name="OPTION_SCOPE" value="private" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.20416666666666666" />
+      </ProjectState>
+    </option>
   </component>
 </project>

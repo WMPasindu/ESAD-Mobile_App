@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.esad.group.assignment.two.dev.LoginActivity;
 import com.esad.group.assignment.two.dev.R;
 import com.esad.group.assignment.two.dev.modal.AppUserSingleton;
 import com.squareup.picasso.Picasso;
@@ -13,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class InspectorActivity extends AppCompatActivity {
@@ -23,6 +25,7 @@ public class InspectorActivity extends AppCompatActivity {
     TextView mEmail;
     @BindView(R.id.profile_image)
     CircleImageView mProfileImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,27 +34,33 @@ public class InspectorActivity extends AppCompatActivity {
         init();
     }
 
-    @OnClick(R.id.btn_verify_tokens)
-    public void verifyTokens(){
+    @OnClick(R.id.search_token)
+    public void verifyTokens() {
         Intent intent = new Intent(this, VerifyTicketActivity.class);
         startActivity(intent);
     }
 
-    @OnClick(R.id.btn_verify_tickets)
-    public void verifyTickets(){
-        Intent intent = new Intent(this, VerifyTicketActivity.class);
+    @OnClick(R.id.signout)
+    public void signOut() {
+        Intent mIntent = new Intent(this, LoginActivity.class);
+        finishAffinity();
+        startActivity(mIntent);
+    }
+
+    @OnClick(R.id.lv_tickets_history)
+    public void searchTicketDetails() {
+        Intent intent = new Intent(this, ViewPreviousApprovedTicketsActivity.class);
         startActivity(intent);
     }
 
     @OnClick(R.id.btn_create_schedule)
     public void createSchedules() {
-        Intent intent = new Intent(this, CreateTimeSchedulesActivity.class);
-        startActivity(intent);
+        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).setTitleText("Maintenance").setContentText("Sorry!!! Function still under development").setConfirmText("OK").showCancelButton(true).setCancelClickListener(SweetAlertDialog::cancel).show();
     }
 
     protected void init() {
         AppUserSingleton appUserSingleton = AppUserSingleton.getInstance();
-        mUserName.setText(appUserSingleton.getFirstName() + " "+ appUserSingleton.getLastname());
+        mUserName.setText(appUserSingleton.getFirstName() + " " + appUserSingleton.getLastname());
         mEmail.setText(appUserSingleton.getEmail());
         Picasso.get().load(appUserSingleton.getProfileImage()).noFade().fit().into(mProfileImage);
     }

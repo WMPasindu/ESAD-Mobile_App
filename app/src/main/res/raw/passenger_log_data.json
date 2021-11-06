@@ -1,0 +1,50 @@
+[
+   {
+      "id": "12345",
+      "date":"05-10-2021",
+      "departure":"Malabe",
+      "arriaval":"Fort"
+   },
+   {
+      "id": "12678",
+      "date":"11-10-2021",
+      "departure":"Malabe",
+      "arriaval":"Kottawa"
+   },
+   {
+      "id": "12999",
+      "date":"16-10-2021",
+      "departure":"Malabe",
+      "arriaval":"Mathara"
+   },
+   {
+      "id": "13568",
+      "date":"18-10-2021",
+      "departure":"Malabe",
+      "arriaval":"Kurunegala"
+   },
+   {
+      "id": "14896",
+      "date":"20-10-2021",
+      "departure":"Kurunegala",
+      "arriaval":"Fort"
+   },
+   {
+      "id": "15000",
+      "date":"01-11-2021",
+      "departure":"Kandy",
+      "arriaval":"Kandy Town"
+   },
+   {
+      "id": "15020",
+      "date":"01-11-2021",
+      "departure":"Malabe",
+      "arriaval":"Maharagama"
+   },
+   {
+      "id": "15069",
+      "date":"04-11-2021",
+      "departure":"Malabe",
+      "arriaval":"Rajagiriya"
+   }
+]

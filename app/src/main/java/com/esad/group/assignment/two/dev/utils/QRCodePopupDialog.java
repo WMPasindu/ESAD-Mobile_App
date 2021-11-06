@@ -29,7 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 
 public class QRCodePopupDialog extends Dialog implements View.OnClickListener {
-
+    // create QR and Bar code popup dialod -- TODO -> need to implement this
     public Activity activity;
     public Dialog d;
     public Button scan;
@@ -55,7 +55,7 @@ public class QRCodePopupDialog extends Dialog implements View.OnClickListener {
         scan = (Button) findViewById(R.id.btn_scan);
         scan.setOnClickListener(this);
 //        txtBarcodeValue.setText("Not Detected!");
-//        init();
+//        scanToken();
     }
 
     @Override
@@ -63,7 +63,7 @@ public class QRCodePopupDialog extends Dialog implements View.OnClickListener {
         dismiss();
     }
 
-    private void init() {
+    private void scanToken() {
         barcodeDetector = new BarcodeDetector.Builder(activity)
                 .setBarcodeFormats(Barcode.ALL_FORMATS)
                 .build();

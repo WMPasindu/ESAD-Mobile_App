@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <RelativeLayout
         android:id="@+id/profile_layout"
         android:layout_width="match_parent"
@@ -13,6 +12,27 @@
         android:elevation="4dp"
         android:paddingBottom="24dp"
         tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_baseline_arrow_back_24" />
+
+            <ImageView
+                android:id="@+id/signout"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_baseline_power_settings_new_24"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
@@ -68,17 +88,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/txtview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:text="Create A Schedule"
+                android:textAllCaps="true"
+                android:textColor="#265C7E"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/date_layout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
             <LinearLayout
                 android:id="@+id/date_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="52dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_weight="2"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints"
+                app:layout_constraintTop_toBottomOf="@id/txtview"
                 tools:layout_editor_absoluteX="32dp">
 
                 <TextView
@@ -90,7 +127,7 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     android:text="From Date"
-                    android:textSize="15sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -109,7 +146,7 @@
                 android:id="@+id/time_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_weight="2"
@@ -119,21 +156,21 @@
                 app:layout_constraintTop_toBottomOf="@id/date_layout">
 
                 <TextView
-                    android:id="@+id/txt_time"
+                    android:id="@+id/txt_arrival_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
                     android:clickable="true"
-                    android:text="Time"
-                    android:textSize="15sp"
+                    android:text="Arrival Time"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
                 <ImageView
-                    android:id="@+id/btn_time"
+                    android:id="@+id/btn_arrival_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -147,107 +184,48 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="32dp"
-                android:weightSum="2"
+                android:weightSum="3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/time_layout"
                 tools:ignore="Orientation">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edit_Expiery_Date"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/txt_departure_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:text="Departure Time"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+                <ImageView
+                    android:id="@+id/btn_departure_time"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:hint="Departure"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/image_icon"
-                    tools:ignore="MissingConstraints">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_expiery_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@android:color/transparent"
-                        android:inputType="text"
-                        android:nextFocusDown="@+id/et_new_course_acronym"
-                        android:textColor="@android:color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edit_CCV"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:hint="Arrival"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/image_icon"
-                    tools:ignore="MissingConstraints">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_ccv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@android:color/transparent"
-                        android:inputType="text"
-                        android:nextFocusDown="@+id/et_new_course_acronym"
-                        android:textColor="@android:color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_weight="2"
+                    android:src="@drawable/ic_baseline_access_time_24" />
 
             </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_CardHol_derName"
-                android:layout_width="0dp"
+            <Spinner
+                android:id="@+id/sp_route_spinner"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Bus No"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/liner_layout_one"
-                tools:ignore="MissingConstraints">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_card_holder_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@android:color/transparent"
-                    android:inputType="text"
-                    android:nextFocusDown="@+id/et_new_course_acronym"
-                    android:textColor="@android:color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-<!--            <com.google.android.material.textfield.TextInputLayout-->
-<!--                android:id="@+id/edit_Credit_Amount"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="32dp"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:layout_marginEnd="32dp"-->
-<!--                android:hint="Driver Name"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/edit_CardHol_derName"-->
-<!--                tools:ignore="MissingConstraints">-->
-
-<!--                <com.google.android.material.textfield.TextInputEditText-->
-<!--                    android:id="@+id/et_credit_amount"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:backgroundTint="@android:color/transparent"-->
-<!--                    android:inputType="text"-->
-<!--                    android:nextFocusDown="@+id/et_new_course_acronym"-->
-<!--                    android:textColor="@android:color/black" />-->
-<!--            </com.google.android.material.textfield.TextInputLayout>-->
+                tools:ignore="MissingConstraints"
+                app:layout_constraintTop_toBottomOf="@+id/liner_layout_one"/>
 
             <Button
                 android:id="@+id/btn_create_schedule"
@@ -266,7 +244,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_CardHol_derName" />
+                app:layout_constraintTop_toBottomOf="@+id/sp_route_spinner" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
